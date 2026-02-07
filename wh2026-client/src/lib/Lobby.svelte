@@ -34,9 +34,9 @@
             <p class="title">Question Types:</p>
             <div class="sections">
                 <div class="section">
-                    <p><input type="number" name="vc" id="vc" min=0 value=0>Vector Calculus</p>
                     <p><input type="number" name="i" id="i" min=0 value=0>Integration</p>
                     <p><input type="number" name="d" id="d" min=0 value=0>Derivatives</p>
+                    <p><input type="number" name="vc" id="vc" min=0 value=0>Vector Calculus</p>
                 </div>
                 <div class="section">
                     <p><input type="number" name="f" id="f" min=0 value=0>Functions</p>
@@ -58,6 +58,10 @@
 </div>
 
 <style>
+    *{
+        font-size: 1.5rem;
+    }
+
     .container{
         width:100vw;
         height: 100vh;
@@ -127,7 +131,7 @@
     }
 
     input{
-        width:2vw;
+        width:3vw;
     }
 
     .settings{
@@ -136,6 +140,6 @@
     }
 
     #time{
-        width: 3vw;
+        width: 4vw;
     }
 </style>
