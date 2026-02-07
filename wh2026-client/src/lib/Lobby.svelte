@@ -53,7 +53,6 @@
         <div class="settings">
             <p class="title">Settings:</p>
             <p><input type="number" name="time" id="time" min=30 value=120>s</p>
-            <p><input type="number" name="max-questions" id="max-questions" min=5 value=5> questions</p>
         </div>
     </div>
 </div>
