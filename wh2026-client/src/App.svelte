@@ -1,9 +1,10 @@
 <script lang="ts">
   import JoinHost from './lib/JoinHost.svelte'
+  import Lobby from './lib/Lobby.svelte' 
 </script>
 
 <main>
-  <JoinHost />
+  <Lobby />
 </main>
 
 <style>
