@@ -27,7 +27,7 @@
         <div id="site-buttons">
             <div class="site-rows">
                 <div class="column-layout">
-                    <h1>ENTER CODE</h1>
+                    <input type="text" name="code" id="code" placeholder="Enter the code">
                 </div>
                 <div class="column-layout">
                     <button class="menu-buttons">Join Lobby</button>
