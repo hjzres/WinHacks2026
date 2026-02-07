@@ -1,11 +1,9 @@
 <script lang="ts">
-  import Counter from './lib/Counter.svelte'
+  import JoinHost from './lib/JoinHost.svelte'
 </script>
 
 <main>
-  <div class="card">
-    <Counter />
-  </div>
+  <JoinHost />
 </main>
 
 <style>
