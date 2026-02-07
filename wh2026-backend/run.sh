@@ -1,0 +1,3 @@
+#! /bin/bash
+
+uv run uvicorn --port 5000 wh2026_server:app
