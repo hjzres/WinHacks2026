@@ -24,6 +24,10 @@
   let question : string = $state("");
   let answer : string = $state("");
   let totalQuestions: number = $state(1);
+  let currentQuestion = $state(1);
+  let sabotageChance:number = $state(3);
+
+  let gameComponent:Game;
 
   socket.on("players_updated", (data) => {
       console.log(data);
@@ -71,6 +75,12 @@
     console.log(userAnswer);
     console.log(data);
     if(!data.is_correct) return;
+    currentQuestion++;
+    sabotageChance = Math.floor(Math.random() * 2);
+    if(sabotageChance == 1){
+        gameComponent.sabotage()
+    }
+    console.log(sabotageChance);
     question = data.next_question;
     answer = data.next_answer_template;
     console.log(question);
@@ -86,7 +96,7 @@
   {:else if !gameStarted}
     <Lobby players={players} gameCode={gameCode} isHost={isHost} updateQuestionData={updateQuestionTypes} startGame={startGame}/>
   {:else}
-    <Game question={question} answer={answer} submitAnswer={submitAnswer} totalQuestions={totalQuestions} players={players}/>
+    <Game question={question} answer={answer} submitAnswer={submitAnswer} totalQuestions={totalQuestions} players={players} currentQuestion={currentQuestion} sabotageChance=(sabotageChance) bind:this={gameComponent}/>
   {/if}
 </main>
 

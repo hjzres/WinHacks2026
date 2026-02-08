@@ -1,24 +1,29 @@
 <script lang="ts">
-   let { question, answer, submitAnswer, totalQuestions, players } = $props();
+   let { question, answer, submitAnswer, totalQuestions, players, currentQuestion} = $props();
 
-  let currentQuestion = $state(1);
+  
 
   let renderedVersion: HTMLElement;
   let renderedAnswer: HTMLElement;
 
-  let sabotageOpen = false; 
+  let sabotageOpen = $state(false); 
 
   function sabotagePlayer(name: string) {
     console.log("Sabotaged:", name);
     sabotageOpen = false; 
   }
 
+  export function sabotage(){
+    sabotageOpen = true;
+    console.log("test");
+  }
+
   $effect(() => {
-    if (!renderedVersion || !renderedAnswer) return;
+    
     question;
     answer;
     currentQuestion;
-    console.log("changes");
+    if (!renderedVersion || !renderedAnswer) return;
     // @ts-ignore
     window.MathJax?.typesetClear([renderedVersion, renderedAnswer]);
     renderedVersion.innerHTML = "$$" + question + "$$";
@@ -34,7 +39,7 @@
       if (input.value === "") return;
       data[input.name] = Number(input.value);
     }
-    currentQuestion++;
+
     submitAnswer(data);
   }
 </script>
