@@ -9,6 +9,13 @@
         count: number;
     }
 
+    $effect(() => {
+        let questions: {[index: string]: number|undefined} = {}
+        for(let qt of questionTypes) {
+            questions[qt.name] = qt.count;
+        }
+    })
+
     let questionTypes: Array<QuestionTypeData> = $state([
         {name:"integral", display:"Integral", count:0}, 
         {name:"derivatives", display:"Derivatives", count:0},
