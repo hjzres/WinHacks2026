@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { interceptors } from "undici-types";
 
-    let { players, gameCode, isHost, updateQuestionData: updateQuestionData } = $props();
+    let { players, gameCode, isHost, updateQuestionData: updateQuestionData, startGame } = $props();
 
     interface QuestionTypeData {
         name: string;
@@ -47,7 +47,7 @@
 
             <div style="width: 33.3%; height: 100%; display: flex; justify-content: right; align-items: center; margin-right: 15px;">
                 {#if isHost}
-                    <button class="button-container">Start Round</button>
+                    <button class="button-container" onclick={startGame}>Start Round</button>
                 {/if}
             </div>
         </div>
