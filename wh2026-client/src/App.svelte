@@ -23,7 +23,7 @@
   let gameStarted : boolean = $state(false);
   let question : string = $state("");
   let answer : string = $state("");
-  let maxQuestions: number = $state(0);
+  let totalQuestions: number = $state(1);
 
   socket.on("players_updated", (data) => {
       console.log(data);
@@ -35,8 +35,8 @@
       gameStarted = true;
       question = data.question;
       answer = data.answer_template;
-      console.log(question);
-      console.log(answer);
+      totalQuestions = data.total_questions;
+      console.log(totalQuestions);
   })
 
   function HostLobby(){
@@ -58,7 +58,6 @@
 
   function updateQuestionTypes(questions: {[index: string]: number|undefined}){
     socket.emit("update_question_types", questions);
-    maxQuestions = Number(Object.values(questions).reduce((sum, val) => sum + (val || 0), 0));
   }
   
   function startGame(){
@@ -87,7 +86,7 @@
   {:else if !gameStarted}
     <Lobby players={players} gameCode={gameCode} isHost={isHost} updateQuestionData={updateQuestionTypes} startGame={startGame}/>
   {:else}
-    <Game question={question} answer={answer} submitAnswer={submitAnswer} maxQuestions={maxQuestions}/>
+    <Game question={question} answer={answer} submitAnswer={submitAnswer} totalQuestions={totalQuestions}/>
   {/if}
 </main>
 

@@ -100,7 +100,7 @@
             </div>
 
             <div style="width: 25%; height: 100%;">
-                <p style="margin-left: 15px;"><input readonly={!isHost} type="number" name="time" id="time" min=30 value=120 style="width: 70px; text-align: center;"> s</p>
+                <p style="margin-left: 15px;">Max Question Time: <input readonly={!isHost} type="number" name="time" id="time" min=30 value=120 style="width: 70px; text-align: center;"> s</p>
             </div>
         </div>
     </div>

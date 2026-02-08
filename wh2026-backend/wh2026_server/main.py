@@ -133,6 +133,7 @@ async def start_game(sid: str):
         {
             "question": first_question.render_question(),
             "answer_template": first_question.render_answer_template(),
+            "total_questions": len(game.questions)
         },
         room=conn_data.game_code,
     )

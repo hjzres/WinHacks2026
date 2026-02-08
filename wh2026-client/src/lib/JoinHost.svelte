@@ -6,7 +6,7 @@
 <div id="body">
     <div id="container">
         <div style="width: 100%; height: 10%;">
-             <p id="site-name">Site Name</p>
+             <p id="site-name">Crammed Together</p>
              <p id="site-description">Harness the potential of competitive group studying to solidify your mathematical foundations! Choose an option below:</p>
         </div>
 

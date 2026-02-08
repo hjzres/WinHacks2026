@@ -1,5 +1,5 @@
 <script lang="ts">
-   let { question, answer, submitAnswer, maxQuestions } = $props();
+   let { question, answer, submitAnswer, totalQuestions } = $props();
 
   let currentQuestion = $state(1);
 
@@ -39,44 +39,45 @@
     submitAnswer(data);
   }
 </script>
+<div class="bg">
+    <main>
+    <header>
+        <span class="qLabel">Question #{currentQuestion}:</span>
+        <span class="qMath" bind:this={renderedVersion}>$${question}$$</span>
+    </header>
 
-<main>
-  <header>
-    <span class="qLabel">Question #{currentQuestion}:</span>
-    <span class="qMath" bind:this={renderedVersion}>$${question}$$</span>
-  </header>
-
-  <div class="workArea">
-    <span bind:this={renderedAnswer}>$${answer}$$</span>
-  </div>
-
-  <footer>
-    <div class="progress">{currentQuestion} / {maxQuestions}</div>
-    <button class="nextBtn" onclick={next}>Next →</button>
-  </footer>
-
-  {#if sabotageOpen}
-    <div class="overlay">
-      <div class="modal">
-        <div class="modalTitle">Choose someone to sabotage</div>
-
-        <div class="playerList">
-          {#each players as p}
-            <div class="playerItem" onclick={() => sabotagePlayer(p)}>
-            {p}
-            </div>
-          {/each}
-        </div>
-      </div>
+    <div class="workArea">
+        <span bind:this={renderedAnswer}>$${answer}$$</span>
     </div>
-  {/if}
-</main>
 
+    <footer>
+        <div class="progress">{currentQuestion} / {totalQuestions}</div>
+        <button class="nextBtn" onclick={next}>Next →</button>
+    </footer>
+
+    {#if sabotageOpen}
+        <div class="overlay">
+        <div class="modal">
+            <div class="modalTitle">Choose someone to sabotage</div>
+
+            <div class="playerList">
+            {#each players as p}
+                <div class="playerItem" onclick={() => sabotagePlayer(p)}>
+                {p}
+                </div>
+            {/each}
+            </div>
+        </div>
+        </div>
+    {/if}
+    
+    </main>
+</div>
 <style>
   main {
-    margin: 8vh auto;
-    width: min(1000px, 92vw);
-    height: 84vh;
+    margin: 0 auto;
+    width: min(1000px, 92%);
+    height: 84%;
 
     border-radius: 18px;
     border: 1px solid rgba(0,0,0,0.10);
@@ -91,6 +92,8 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
+
+    transform: translateY(8vh);
   }
 
   header {
@@ -208,5 +211,12 @@
 
   span {
     margin: 0;
+  }
+
+  .bg{
+    width:100vw;
+    height: 100vh;
+    background-image: url(https://static.vecteezy.com/system/resources/previews/013/894/763/non_2x/minimalist-blue-wavy-with-halftone-background-gradient-free-vector.jpg);
+    background-size: cover;
   }
 </style>
