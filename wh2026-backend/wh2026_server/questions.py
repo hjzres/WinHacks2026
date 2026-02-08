@@ -1,3 +1,4 @@
+import math
 import random
 import string
 
@@ -31,6 +32,28 @@ QUADRATIC_FACTORING = QuestionTemplate(
     placeholders=["r", "s"],
 )
 
+POWER_DEFINITE_INTEGRAL = QuestionTemplate(
+    MathTemplate(r"\int_{ $a }^{ $b } x^{ $n } dx "),
+    MathTemplate(r"\frac_{ $num }{ $den }"),
+    constants=["a", "b", "n"],
+    placeholders=["num", "den"],
+)
+
+MATRIX_2X2 = QuestionTemplate(
+    MathTemplate(r"""\left[\begin{array}{cc|c}
+$a & $b & $c \\
+$d & $e & $f
+\end{array}\right]
+"""),
+    MathTemplate(r"""\left[\begin{array}{cc|c}
+1 & 0 & $x \\
+0 & 1 & $y
+\end{array}\right]
+"""),
+    constants=["a", "b", "c", "d", "e", "f"],
+    placeholders=["x", "y"],
+)
+
 
 @define
 class Question:
@@ -51,5 +74,45 @@ def make_random_qf():
     return Question(QUADRATIC_FACTORING, {"b": r + s, "c": r * s}, {"r": r, "s": s})
 
 
+def make_random_power_definite_integral():
+    a = random.randint(-10, 9)
+    b = random.randint(a + 1, 10)
+
+    n = random.randint(2, 8)
+
+    num = b ** (n + 1) - a ** (n + 1)
+    den = n + 1
+
+    gcd = math.gcd(num, den)
+
+    num //= gcd
+    den //= gcd
+
+    return Question(
+        QUADRATIC_FACTORING, {"a": a, "b": b, "n": n}, {"num": num, "den": den}
+    )
+
+
+def make_random_matrix_2x2():
+    solvable = False
+
+    while not solvable:
+        a = random.randint(-10, 10)
+        b = random.randint(-10, 10)
+        c = random.randint(-10, 10)
+        d = random.randint(-10, 10)
+
+        det = a * d - b * c
+
+        solvable = det != 0
+
+    return Question(
+        MATRIX_2X2, {"a": a, "b": b, "c": c, "d": d, "e": e, "f": f}, {"x": x, "y": y}
+    )
+
+
+question_generators = [make_random_qf, make_random_power_definite_integral]
+
+
 def generate_questions():
-    return [make_random_qf() for _ in range(10)]
+    return [random.choice(question_generators)() for _ in range(10)]

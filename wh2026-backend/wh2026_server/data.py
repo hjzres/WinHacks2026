@@ -1,3 +1,4 @@
+import datetime
 import random
 from uuid import UUID
 
@@ -43,6 +44,8 @@ class ConnectionData:
 @define
 class Game:
     code: str = field()
+    time_created: datetime.datetime = field(factory=datetime.datetime.now)
+    time_started: datetime.datetime | None = field(default=None)
     started: bool = field(default=False)
     players: dict[UUID, Player] = field(factory=dict)
 
@@ -58,7 +61,6 @@ class Player:
     id: UUID = field()
     is_host: bool = field(default=False)
     name: str = field(factory=random_name)
-    points: int = field(default=0)
     question_number: int = field(default=0)
 
     def get_display_data(self) -> dict:
