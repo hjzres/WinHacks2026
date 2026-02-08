@@ -1,10 +1,23 @@
 <script lang="ts">
+    let { question, answer } = $props();
 
+    let test = "\\int_{1}^{10}x^2 dx"
+
+    let renderedVersion: HTMLElement;
+
+    $effect(function renderMath() {
+        // @ts-ignore
+        window.MathJax?.typesetPromise([renderedVersion]);
+    });
+
+    
+
+    // window.MathJax.typeset(renderedVersion);
 </script>
 
 <main>
     <header>
-        Question #X: ____________
+        Question #X: <span bind:this={renderedVersion} >$${test}$$</span>
     </header>
    <footer>
         ANSWER BOX

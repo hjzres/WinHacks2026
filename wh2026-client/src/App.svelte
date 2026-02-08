@@ -21,6 +21,8 @@
   let gameCode : string = $state("");
   let isHost : boolean = $state(false);
   let gameStarted : boolean = $state(false);
+  let question : string = $state("");
+  let answer : string = $state("")
 
   socket.on("players_updated", (data) => {
       console.log(data);
@@ -30,6 +32,8 @@
   socket.on("game_started", (data) => {
       console.log(data);
       gameStarted = true;
+      question = data.question;
+      answer = data.answer;
       console.log(gameStarted);
   })
 
@@ -66,7 +70,7 @@
   {:else if !gameStarted}
     <Lobby players={players} gameCode={gameCode} isHost={isHost} updateQuestionData={updateQuestionTypes} startGame={startGame}/>
   {:else}
-    <Game />
+    <Game question={question} answer={answer}/>
   {/if}
 </main>
 
