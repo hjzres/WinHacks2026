@@ -7,8 +7,6 @@
 
   if(localStorage.getItem("uuid") === null){
     localStorage.setItem("uuid", uuidv4());
-  } else {
-    console.log("Reconnected");
   }
 
   const socket = io("http://localhost:5000",{
@@ -17,8 +15,11 @@
   }
   });
 
-  socket.on("connect", () => {
-      
+  let players : Array<string> = $state([]);
+
+  socket.on("players_updated", (data) => {
+      console.log(data);
+      players = data;
   });
 
   function HostLobby(){
@@ -31,8 +32,6 @@
     socket.emit("join_game", game_code, (data) => {
       console.log(data);
     })
-
-    let code : string;
   }
 
 </script>
