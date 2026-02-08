@@ -16,7 +16,13 @@
   }
   });
 
-  let players : Array<string> = $state([]);
+  interface PlayerData {
+      name: string, 
+      is_host: boolean, 
+      id: string
+  }
+
+  let players : Array<PlayerData> = $state([]);
   let inLobby : boolean = $state(false);
   let gameCode : string = $state("");
   let isHost : boolean = $state(false);
@@ -26,12 +32,26 @@
   let totalQuestions: number = $state(1);
   let currentQuestion = $state(1);
   let sabotageChance:number = $state(3);
+  
+  function sendSabotage(id: string){
+    socket.emit("send_sabotage", id, (data) => {
+        
+    })
+  }
 
   let gameComponent:Game;
 
   socket.on("players_updated", (data) => {
       console.log(data);
       players = data;
+  });
+
+  socket.on("question_updated", (data) => {
+      console.log(data);
+      players = data;
+
+      question = data.question;
+      answer = data.answer_template;
   });
 
   socket.on("game_started", (data) => {
@@ -76,9 +96,10 @@
     console.log(data);
     if(!data.is_correct) return;
     currentQuestion++;
-    sabotageChance = Math.floor(Math.random() * 2);
+    sabotageChance = Math.floor(Math.random() * 3);
     if(sabotageChance == 1){
         gameComponent.sabotage()
+        sabotageChance = 2;
     }
     console.log(sabotageChance);
     question = data.next_question;
@@ -96,7 +117,7 @@
   {:else if !gameStarted}
     <Lobby players={players} gameCode={gameCode} isHost={isHost} updateQuestionData={updateQuestionTypes} startGame={startGame}/>
   {:else}
-    <Game question={question} answer={answer} submitAnswer={submitAnswer} totalQuestions={totalQuestions} players={players} currentQuestion={currentQuestion} sabotageChance=(sabotageChance) bind:this={gameComponent}/>
+    <Game question={question} answer={answer} submitAnswer={submitAnswer} totalQuestions={totalQuestions} players={players} currentQuestion={currentQuestion} bind:this={gameComponent} sendSabotage={sendSabotage}/>
   {/if}
 </main>
 

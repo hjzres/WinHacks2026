@@ -1,4 +1,6 @@
 from typing import Any
+from uuid import UUID
+from .questions import make_random_qf
 
 import socketio
 
@@ -205,6 +207,35 @@ async def update_question_types(sid: str, data: dict[str, int]):
     print(game.question_types)
 
     return {"status": "OK"}
+
+@sio.event
+async def sabotage_player(sid: str, data: str):
+    conn_data = connections[sid]
+
+    if conn_data.game_code is None:
+        return {"status": "ERROR", "message": "Not in game."}
+
+    game = games[conn_data.game_code]
+    player = game.players[conn_data.id]
+
+    target_uuid = UUID(data)
+
+    target_player = game.players[target_uuid]
+
+    target_player.question_overrides[target_player.question_number] = make_random_qf();
+    new_question = target_player.question_overrides[target_player.question_number]
+
+    target_sid: str
+    for s, conn in connections.items():
+        if conn.id == target_uuid and conn.game_code == conn_data.game_code:
+            target_sid = s
+            break
+
+    await sio.emit("change_question",  {
+            "question": new_question.render_question(),
+            "answer_template": new_question.render_answer_template()
+        }, to=target_sid,)
+
 
 
 @sio.event

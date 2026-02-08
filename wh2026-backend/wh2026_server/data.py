@@ -42,6 +42,19 @@ class ConnectionData:
     game_code: str | None = field(default=None)
 
 
+
+@define
+class Player:
+    id: UUID = field()
+    is_host: bool = field(default=False)
+    name: str = field(factory=random_name)
+    question_number: int = field(default=0)
+    question_overrides: dict[int, str] = field(factory=dict)
+
+    def get_display_data(self) -> dict:
+        return {"name": self.name, "is_host": self.is_host, "id": self.id}
+
+
 @define
 class Game:
     code: str = field()
@@ -56,13 +69,3 @@ class Game:
     def get_player_list(self) -> list[dict]:
         return [p.get_display_data() for p in self.players.values()]
 
-
-@define
-class Player:
-    id: UUID = field()
-    is_host: bool = field(default=False)
-    name: str = field(factory=random_name)
-    question_number: int = field(default=0)
-
-    def get_display_data(self) -> dict:
-        return {"name": self.name, "is_host": self.is_host}

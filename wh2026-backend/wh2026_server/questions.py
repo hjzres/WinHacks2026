@@ -66,6 +66,14 @@ def check_quadratic_factoring(
 
     return sub_r == sol_r and sub_s == sol_s
 
+SABOTAGE_PLAYER = QuestionTemplate(
+    MathTemplate(r"x^2 + $b x + $c"),
+    MathTemplate(r"( x + $r )( x + $s )"),
+    constants=["b", "c"],
+    placeholders=["r", "s"],
+    check_answer=check_quadratic_factoring,
+)
+
 
 QUADRATIC_FACTORING = QuestionTemplate(
     MathTemplate(r"x^2 + $b x + $c"),
