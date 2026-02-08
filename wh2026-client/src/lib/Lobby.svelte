@@ -1,12 +1,14 @@
 <script lang="ts">
-    let { players, gameCode } = $props();
+    let { players, gameCode, isHost } = $props();
 </script>
 
 <div id="parent-container">
     <div id="code-container">
         <div style="width: 100%; height: 100%; display: flex; flex-direction: row; align-items: center;">
             <div style="width: 33.3%; height: 100%;">
-                <p class="text-container">[HOST]</p>
+                {#if isHost}
+                    <p class="text-container">[HOST]</p>
+                {/if}
             </div>
 
             <div id="code-text-container" style="width: 33.4%; height: 100%;">
@@ -14,7 +16,9 @@
             </div>
 
             <div style="width: 33.3%; height: 100%; display: flex; justify-content: right; align-items: center; margin-right: 15px;">
-                <button class="button-container">Start Round</button>
+                {#if isHost}
+                    <button class="button-container">Start Round</button>
+                {/if}
             </div>
         </div>
     </div>
@@ -57,30 +61,30 @@
                 <div id="questions-menu">
                     <!-- CATEGORY 1 -->
                     <div style="width: 33.4%; height: 100%; margin-left: 15px;">
-                        <p class="mathematical-subject-text"><input type="number" name="i" id="i" min=0 value=0 style="width: 70px; text-align: center;"> Integration</p>
-                        <p class="mathematical-subject-text"><input type="number" name="d" id="d" min=0 value=0 style="width: 70px; text-align: center;"> Derivatives</p>
-                        <p class="mathematical-subject-text"><input type="number" name="vc" id="vc" min=0 value=0 style="width: 70px; text-align: center;"> Vector Calculus</p>
+                        <p class="mathematical-subject-text"><input readonly={!isHost} type="number" name="i" id="i" min=0 value=0 style="width: 70px; text-align: center;"> Integration</p>
+                        <p class="mathematical-subject-text"><input readonly={!isHost} type="number" name="d" id="d" min=0 value=0 style="width: 70px; text-align: center;"> Derivatives</p>
+                        <p class="mathematical-subject-text"><input readonly={!isHost} type="number" name="vc" id="vc" min=0 value=0 style="width: 70px; text-align: center;"> Vector Calculus</p>
                     </div>
 
                     <!-- CATEGORY 2 -->
                     <div style="width: 33.3%; height: 100%;">
-                        <p class="mathematical-subject-text"><input type="number" name="f" id="f" min=0 value=0 style="width: 70px; text-align: center;"> Functions</p>
-                        <p class="mathematical-subject-text"><input type="number" name="ba" id="ba" min=0 value=0 style="width: 70px; text-align: center;"> Boolean Algebra</p>
-                        <p class="mathematical-subject-text"><input type="number" name="la" id="la" min=0 value=0 style="width: 70px; text-align: center;"> Linear Algebra</p>
+                        <p class="mathematical-subject-text"><input readonly={!isHost} type="number" name="f" id="f" min=0 value=0 style="width: 70px; text-align: center;"> Functions</p>
+                        <p class="mathematical-subject-text"><input readonly={!isHost} type="number" name="ba" id="ba" min=0 value=0 style="width: 70px; text-align: center;"> Boolean Algebra</p>
+                        <p class="mathematical-subject-text"><input readonly={!isHost} type="number" name="la" id="la" min=0 value=0 style="width: 70px; text-align: center;"> Linear Algebra</p>
                     </div>
 
                     <!-- CATEGORY 3 -->
                     <div style="width: 33.3%; height: 100%;">
-                        <p class="mathematical-subject-text"><input type="number" name="a" id="a" min=0 value=0 style="width: 70px; text-align: center;"> Arithmetic</p>
-                        <p class="mathematical-subject-text"><input type="number" name="t" id="t" min=0 value=0 style="width: 70px; text-align: center;"> Trigonometry</p>
-                        <p class="mathematical-subject-text"><input type="number" name="s" id="s" min=0 value=0 style="width: 70px; text-align: center;"> Statistics</p>
-                    </div>
+                        <p class="mathematical-subject-text"><input readonly={!isHost} type="number" name="a" id="a" min=0 value=0 style="width: 70px; text-align: center;"> Arithmetic</p>
+                        <p class="mathematical-subject-text"><input readonly={!isHost} type="number" name="t" id="t" min=0 value=0 style="width: 70px; text-align: center;"> Trigonometry</p>
+                        <p class="mathematical-subject-text"><input readonly={!isHost} type="number" name="s" id="s" min=0 value=0 style="width: 70px; text-align: center;"> Statistics</p>
+                    </div>  
                 </div>
             </div>
 
             <!-- SETTINGS -->
             <div style="width: 25%; height: 100%;">
-                <p style="margin-left: 15px;"><input type="number" name="time" id="time" min=30 value=120 style="width: 70px; text-align: center;"> s</p>
+                <p style="margin-left: 15px;"><input readonly={!isHost} type="number" name="time" id="time" min=30 value=120 style="width: 70px; text-align: center;"> s</p>
             </div>
         </div>
     </div>
