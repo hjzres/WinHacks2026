@@ -1,5 +1,25 @@
 <script lang="ts">
+  import type { interceptors } from "undici-types";
+
     let { players, gameCode, isHost } = $props();
+
+    interface QuestionTypeData {
+        name: string;
+        display: string;
+        count: number;
+    }
+
+    let questionTypes: Array<QuestionTypeData> = $state([
+        {name:"integral", display:"Integral", count:0}, 
+        {name:"derivatives", display:"Derivatives", count:0},
+        {name:"vector_calculus", display:"Vector Calculus", count:0}, 
+        {name:"functions", display:"Functions", count:0},
+        {name:"boolean_algebra", display:"Boolean Algebra", count:0}, 
+        {name:"linear_algebra", display:"Linear Algebra", count:0},
+        {name:"arithmetic", display:"Arithmetic", count:0}, 
+        {name:"trigonometry", display:"Trigonometry", count:0},
+        {name:"statistics", display:"Statistics", count:0}
+        ])
 </script>
 
 <div id="parent-container">
@@ -59,30 +79,12 @@
         <div style="width: 100%; height: 80%; display: flex; flex-direction: row; align-items: center;">
             <div style="width: 75%; height: 100%">
                 <div id="questions-menu">
-                    <!-- CATEGORY 1 -->
-                    <div style="width: 33.4%; height: 100%; margin-left: 15px;">
-                        <p class="mathematical-subject-text"><input readonly={!isHost} type="number" name="i" id="i" min=0 value=0 style="width: 70px; text-align: center;"> Integration</p>
-                        <p class="mathematical-subject-text"><input readonly={!isHost} type="number" name="d" id="d" min=0 value=0 style="width: 70px; text-align: center;"> Derivatives</p>
-                        <p class="mathematical-subject-text"><input readonly={!isHost} type="number" name="vc" id="vc" min=0 value=0 style="width: 70px; text-align: center;"> Vector Calculus</p>
-                    </div>
-
-                    <!-- CATEGORY 2 -->
-                    <div style="width: 33.3%; height: 100%;">
-                        <p class="mathematical-subject-text"><input readonly={!isHost} type="number" name="f" id="f" min=0 value=0 style="width: 70px; text-align: center;"> Functions</p>
-                        <p class="mathematical-subject-text"><input readonly={!isHost} type="number" name="ba" id="ba" min=0 value=0 style="width: 70px; text-align: center;"> Boolean Algebra</p>
-                        <p class="mathematical-subject-text"><input readonly={!isHost} type="number" name="la" id="la" min=0 value=0 style="width: 70px; text-align: center;"> Linear Algebra</p>
-                    </div>
-
-                    <!-- CATEGORY 3 -->
-                    <div style="width: 33.3%; height: 100%;">
-                        <p class="mathematical-subject-text"><input readonly={!isHost} type="number" name="a" id="a" min=0 value=0 style="width: 70px; text-align: center;"> Arithmetic</p>
-                        <p class="mathematical-subject-text"><input readonly={!isHost} type="number" name="t" id="t" min=0 value=0 style="width: 70px; text-align: center;"> Trigonometry</p>
-                        <p class="mathematical-subject-text"><input readonly={!isHost} type="number" name="s" id="s" min=0 value=0 style="width: 70px; text-align: center;"> Statistics</p>
-                    </div>  
+                    {#each questionTypes as question}
+                        <p class="mathematical-subject-text"><input readonly={!isHost} type="number" min=0 value={question.count} style="width: 70px; text-align: center;"> {question.display}</p>
+                    {/each}
                 </div>
             </div>
 
-            <!-- SETTINGS -->
             <div style="width: 25%; height: 100%;">
                 <p style="margin-left: 15px;"><input readonly={!isHost} type="number" name="time" id="time" min=30 value=120 style="width: 70px; text-align: center;"> s</p>
             </div>
@@ -162,9 +164,11 @@
     #questions-menu {
         width: 100%; 
         height: 100%;
-        display: flex;
-        flex-direction: row;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
         align-items: center;
+        padding: 20px;
     }
 
     .text-container {
