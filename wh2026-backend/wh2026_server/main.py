@@ -52,6 +52,8 @@ async def create_game(sid: str):
 
     print(games)
 
+    await sio.emit("players_updated", game.get_player_list(), room=conn_data.game_code)
+
     return {"status": "OK", "game_code": game_code, "name": player.name}
 
 
@@ -96,6 +98,86 @@ async def set_name(sid: str, data: str):
     await sio.emit("players_updated", game.get_player_list(), room=conn_data.game_code)
 
     player.name = new_name
+
+
+@sio.event
+async def start_game(sid: str):
+    """
+    Client->Server event that should be sent from the host player when they
+    press the "start game" button.
+
+    It will automatically send the "game_started" event to every player in the
+    game, in which the data object will have a "question" field containing the
+    question which can be rendered on the client.
+    """
+    conn_data = connections[sid]
+
+    if conn_data.game_code is None:
+        return {"status": "ERROR", "message": "Not in game."}
+
+    game = games[conn_data.game_code]
+    player = game.players[conn_data.id]
+
+    if not player.is_host:
+        return {"status": "ERROR", "message": "Player is not a host."}
+
+    if game.started:
+        return {"status": "ERROR", "message": "Game has already started."}
+
+    game.started = True
+
+    first_question = game.questions[0]
+
+    await sio.emit(
+        "game_started",
+        {"question": first_question.render_question()},
+        room=conn_data.game_code,
+    )
+
+    return {"status": "OK"}
+
+
+@sio.event
+async def submit_answer(sid: str, data: dict[str, int]):
+    """
+    Client->Server event that should be sent from a player when they want to
+    submit an answer to the current question.
+
+    It should send an object with an integer value for each placeholder in the
+    solution template.
+    """
+    conn_data = connections[sid]
+
+    if conn_data.game_code is None:
+        return {"status": "ERROR", "message": "Not in game."}
+
+    game = games[conn_data.game_code]
+    player = game.players[conn_data.id]
+
+    if not game.started:
+        return {"status": "ERROR", "message": "Game has not started."}
+
+    question = game.questions[player.question_number]
+
+    for p in question.template.placeholders:
+        if p not in data:
+            return {
+                "status": "ERROR",
+                "message": "Submitted answer doesn't contain all placeholders.",
+            }
+
+    for p in question.template.placeholders:
+        if data[p] != question.placeholder_solutions[p]:
+            return {"status": "OK", "is_correct": False}
+
+    player.question_number += 1
+    next_question = game.questions[player.question_number]
+
+    return {
+        "status": "OK",
+        "is_correct": True,
+        "next_question": next_question.render_question(),
+    }
 
 
 @sio.event
