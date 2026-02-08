@@ -23,7 +23,7 @@
 
   function HostLobby(){
     socket.emit("create_game", (data) => {
-      console.log(data.status, data.game_code, data.name);
+      console.log(data);
     });
   }
 

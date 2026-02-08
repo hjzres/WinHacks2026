@@ -24,7 +24,7 @@ def generate_unique_game_code() -> str:
 
 
 @sio.event
-async def connect(sid: str, auth: Any) -> None:
+async def connect(sid: str, environ: Any, auth: Any) -> None:
     id = auth["id"]
     connections[sid] = ConnectionData(id)
 
