@@ -58,6 +58,7 @@
 
   function updateQuestionTypes(questions: {[index: string]: number|undefined}){
     socket.emit("update_question_types", questions);
+    maxQuestions = Number(Object.values(questions).reduce((sum, val) => sum + (val || 0), 0));
   }
   
   function startGame(){
@@ -86,7 +87,7 @@
   {:else if !gameStarted}
     <Lobby players={players} gameCode={gameCode} isHost={isHost} updateQuestionData={updateQuestionTypes} startGame={startGame}/>
   {:else}
-    <Game question={question} answer={answer} submitAnswer={submitAnswer}/>
+    <Game question={question} answer={answer} submitAnswer={submitAnswer} maxQuestions={maxQuestions}/>
   {/if}
 </main>
 

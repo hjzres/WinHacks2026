@@ -1,5 +1,5 @@
 <script lang="ts">
-   let { question, answer, submitAnswer } = $props();
+   let { question, answer, submitAnswer, maxQuestions } = $props();
 
   let currentQuestion = $state(1);
 
@@ -51,7 +51,7 @@
   </div>
 
   <footer>
-    <div class="progress">{currentQuestion} / 5</div>
+    <div class="progress">{currentQuestion} / {maxQuestions}</div>
     <button class="nextBtn" onclick={next}>Next →</button>
   </footer>
 
