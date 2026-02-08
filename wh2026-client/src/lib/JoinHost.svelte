@@ -1,7 +1,6 @@
 <script lang="ts">
     
 </script>
-
 <div id="body">
     <div id="site-modal">
         <div class="column-layout">
@@ -18,21 +17,41 @@
                     <button class="menu-buttons">Join Lobby</button>
                 </div>
             </div>
-
             <div class="row-layout">
-                <button class="menu-buttons">Host Lobby</button>
+                <div class = "column-layout"></div>
+                <div class = "column-layout">
+                    <button class="menu-buttons">Host Lobby</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+<head>
+    <link rel="stylesheet" href = "https://fonts.googleapis.com/css2?family=Inter|SN+Pro">
+</head>
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
+    
     #body {
-        background-image: url("https://www.hdwallpapers.in/download/aerial_view_of_ocean_foam_waves_coast_white_beach_sand_hd_ocean-1920x1080.jpg");
+        background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.wallpapersden.com%2Fimage%2Fdownload%2Fabstract-wave-hd-blue_bWZnbm6UmZqaraWkpJRoaWprrWdnaGk.jpg&f=1&nofb=1&ipt=98a6a5de7c02caa8d4320c8166d916e52e7e383d4bd86c46b61b3477f8762847");
+        background-color: rgb(1,0,1);
+        background-size: cover;
         width: 100vw; 
         height: 100vh;
+    }
+
+    #code-input-box {
+        width: 340px;
+        height: 40px;
+        align-self: center;
+        transform: TranslateY(-3px);
+        margin-bottom: 0px;
+        background-color:lightsteelblue;
+        border-radius: 10px;
+        border-width: 0px;
+        border-style: solid;
+        border-color: black;
+        font-size: 20px;
     }
 
     #site-modal {
@@ -53,7 +72,7 @@
     
     .column-layout {
         width: 100%; 
-        height: 50%;
+        height: 100%;
         display: flex;
         flex-direction: column;
     }
@@ -63,6 +82,7 @@
         height: 100%;
         display: flex;
         flex-direction: row;
+        font-family: "SN+Pro", normal;
     }
     
     .row-layout {
@@ -85,6 +105,9 @@
     
     .menu-buttons {
         background-color: rgb(124,185,232);
+        border-color: rgb(36, 23, 1);
+        border-style: solid;
+        border-radius: 20px;
         width: 350px;
         height: 100px;
         position: relative;
@@ -98,6 +121,7 @@
         font-size: 30px;
         display: block;
         margin: 0 auto 20% auto;
+        transform: TranslateY(-250px);
     }
 
     .menu-buttons:hover {
