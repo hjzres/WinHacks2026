@@ -1,8 +1,6 @@
 <script lang="ts">
     let { question, answer } = $props();
 
-    let test = "\\int_{1}^{10}x^2 dx"
-
     let renderedVersion: HTMLElement;
 
     $effect(function renderMath() {
@@ -17,7 +15,7 @@
 
 <main>
     <header>
-        Question #X: <span bind:this={renderedVersion} >$${test}$$</span>
+        Question #X: <span bind:this={renderedVersion} >$${question}$$</span>
     </header>
    <footer>
         ANSWER BOX
