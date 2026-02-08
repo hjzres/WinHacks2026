@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { interceptors } from "undici-types";
 
-    let { players, gameCode, isHost } = $props();
+    let { players, gameCode, isHost, updateQuestionData: updateQuestionData } = $props();
 
     interface QuestionTypeData {
         name: string;
@@ -14,6 +14,7 @@
         for(let qt of questionTypes) {
             questions[qt.name] = qt.count;
         }
+        updateQuestionData(questions);
     })
 
     let questionTypes: Array<QuestionTypeData> = $state([

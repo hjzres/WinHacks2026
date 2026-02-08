@@ -43,6 +43,10 @@
     })
   }
 
+  function updateQuestionTypes(questions: {[index: string]: number|undefined}){
+    socket.emit("update_question_types", questions)
+  }
+
 </script>
 
 <main>
@@ -50,7 +54,7 @@
   {#if !inLobby}
     <JoinHost HostLobby={HostLobby} JoinLobby={JoinLobby} />
   {:else}
-    <Lobby players={players} gameCode={gameCode} isHost={isHost}/>
+    <Lobby players={players} gameCode={gameCode} isHost={isHost} updateQuestionData={updateQuestionTypes}/>
   {/if}
 </main>
 
