@@ -185,6 +185,28 @@ async def submit_answer(sid: str, data: dict[str, int]):
 
 
 @sio.event
+async def update_question_types(sid: str, data: dict[str, int]):
+    conn_data = connections[sid]
+
+    if conn_data.game_code is None:
+        return {"status": "ERROR", "message": "Not in game."}
+
+    game = games[conn_data.game_code]
+    player = game.players[conn_data.id]
+
+    if not player.is_host:
+        return {"status": "ERROR", "message": "Player is not a host."}
+
+    if game.started:
+        return {"status": "ERROR", "message": "Game has already started."}
+
+    game.question_types = data
+    print(game.question_types)
+
+    return {"status": "OK"}
+
+
+@sio.event
 async def disconnect(sid: str, reason: str):
     del connections[sid]
 

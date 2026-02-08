@@ -47,6 +47,7 @@ class Game:
     players: dict[UUID, Player] = field(factory=dict)
 
     questions: list[Question] = field(factory=generate_questions)
+    question_types: dict[str, int] = field(factory=dict)
 
     def get_player_list(self) -> list[dict]:
         return [p.get_display_data() for p in self.players.values()]
