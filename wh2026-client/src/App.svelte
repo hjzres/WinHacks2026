@@ -1,12 +1,19 @@
 <script lang="ts">
+    import { v4 as uuidv4 } from 'uuid';
   import JoinHost from './lib/JoinHost.svelte'
   import Lobby from './lib/Lobby.svelte' 
 
   import { io } from "socket.io-client";
 
+  if(localStorage.getItem("uuid") === null){
+    localStorage.setItem("uuid", uuidv4());
+  } else {
+    console.log("Reconnected");
+  }
+
   const socket = io("http://localhost:5000",{
   auth: {
-    id: "a0472aba-6249-4e24-8baf-711e85d7a58b"
+    id: localStorage.getItem("uuid")
   }
   });
 
@@ -17,7 +24,6 @@
   function HostLobby(){
     socket.emit("create_game", (data) => {
       console.log(data.status, data.game_code, data.name);
-      socket.emit("set_name", "awesomename");
     });
   }
 
