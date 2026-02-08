@@ -78,7 +78,7 @@
                         <p class="mathematical-subject-text"><input readonly={!isHost} type="number" name="a" id="a" min=0 value=0 style="width: 70px; text-align: center;"> Arithmetic</p>
                         <p class="mathematical-subject-text"><input readonly={!isHost} type="number" name="t" id="t" min=0 value=0 style="width: 70px; text-align: center;"> Trigonometry</p>
                         <p class="mathematical-subject-text"><input readonly={!isHost} type="number" name="s" id="s" min=0 value=0 style="width: 70px; text-align: center;"> Statistics</p>
-                    </div>
+                    </div>  
                 </div>
             </div>
 
