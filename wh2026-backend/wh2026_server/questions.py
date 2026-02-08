@@ -139,6 +139,8 @@ class Question:
         return self.template.render_answer_template()
 
     def check_answers(self, answers: dict[str, int]):
+        if self.template.check_answer is not None:
+            return self.template.check_answer(self.placeholder_solutions, answers)
         for p in self.template.placeholders:
             if answers[p] != self.placeholder_solutions[p]:
                 return False

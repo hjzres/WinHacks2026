@@ -46,7 +46,7 @@
       players = data;
   });
 
-  socket.on("question_updated", (data) => {
+  socket.on("change_question", (data) => {
       console.log(data);
       players = data;
 

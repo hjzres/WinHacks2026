@@ -30,9 +30,6 @@ async def connect(sid: str, environ: Any, auth: Any) -> None:
     id = auth["id"]
     connections[sid] = ConnectionData(id)
 
-    print("connect ", sid)
-    print(connections)
-
 
 @sio.event
 async def create_game(sid: str):
@@ -51,8 +48,6 @@ async def create_game(sid: str):
     await sio.enter_room(sid, game_code)
 
     conn_data.game_code = game_code
-
-    print(games)
 
     await sio.emit("players_updated", game.get_player_list(), room=conn_data.game_code)
 
@@ -73,6 +68,7 @@ async def join_game(sid: str, data: str):
         return {"status": "ERROR", "message": "Game doesn't exist."}
 
     game.players[conn_data.id] = Player(conn_data.id)
+    conn_data.game_code = game_code
 
     await sio.enter_room(sid, game_code)
 
@@ -94,8 +90,6 @@ async def set_name(sid: str, data: str):
 
     game = games[conn_data.game_code]
     player = game.players[conn_data.id]
-
-    print(f"Old name: {player.name}, New name: {new_name}")
 
     await sio.emit("players_updated", game.get_player_list(), room=conn_data.game_code)
 
@@ -155,6 +149,8 @@ async def submit_answer(sid: str, data: dict[str, int]):
     conn_data = connections[sid]
 
     if conn_data.game_code is None:
+        print(sid)
+        print(connections)
         return {"status": "ERROR", "message": "Not in game."}
 
     game = games[conn_data.game_code]
@@ -204,8 +200,6 @@ async def update_question_types(sid: str, data: dict[str, int]):
         return {"status": "ERROR", "message": "Game has already started."}
 
     game.question_types = data
-    print(game.question_types)
-
     return {"status": "OK"}
 
 @sio.event
@@ -231,6 +225,8 @@ async def sabotage_player(sid: str, data: str):
             target_sid = s
             break
 
+    print("sabb: " + target_sid)
+
     await sio.emit("change_question",  {
             "question": new_question.render_question(),
             "answer_template": new_question.render_answer_template()
@@ -241,8 +237,6 @@ async def sabotage_player(sid: str, data: str):
 @sio.event
 async def disconnect(sid: str, reason: str):
     del connections[sid]
-
-    print("disconnect ", sid, reason)
 
 
 app = socketio.ASGIApp(sio)

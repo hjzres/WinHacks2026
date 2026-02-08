@@ -28,7 +28,7 @@
     // @ts-ignore
     window.MathJax?.typesetClear([renderedVersion, renderedAnswer]);
     renderedVersion.innerHTML = "$$" + question + "$$";
-    renderedAnswer.innerHTML = "$$" + answer + "$$";
+    renderedAnswer.innerHTML = answer;
     window.MathJax?.typeset([renderedVersion, renderedAnswer]);
   });
 
@@ -52,7 +52,7 @@
     </header>
 
     <div class="workArea">
-        <span bind:this={renderedAnswer}>$${answer}$$</span>
+        <span bind:this={renderedAnswer}>{answer}</span>
     </div>
 
     <footer>
