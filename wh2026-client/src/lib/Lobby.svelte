@@ -13,8 +13,8 @@
                 <p style="font-size: 2rem; font-weight: bold;">JOIN CODE: {gameCode}</p>
             </div>
 
-            <div class="button-container" style="width: 33.3%; height: 100%;">
-                <button id="start-button">Start Round</button>
+            <div style="width: 33.3%; height: 100%; display: flex; justify-content: right; align-items: center; margin-right: 15px;">
+                <button class="button-container">Start Round</button>
             </div>
         </div>
     </div>
@@ -104,7 +104,12 @@
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr)); /* max 4 per row */
         gap: 12px; /* space between rows/cols */
-        
+    }
+
+    .player-grid p{
+        display:flex;
+        justify-content: center;
+        font-weight: bold;
     }
 
     @media (max-width: 800px) {
@@ -120,19 +125,21 @@
         align-items: center;
         width: 98vw;
         height: 10vh;
-        background-color: white;
         margin-left: 1vw;
         transform: translateY(1vh);
         border-radius: 15px;
+        background-color: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(30px);
     }
 
     .player-list-menu {
         width: 98vw;
         height: 40vh;
         margin-left: 1vw;
-        background-color: white;
         transform: translateY(1vh);
         border-radius: 15px;
+        background-color: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(30px);
     }
 
     .info-menu-container {
@@ -142,9 +149,10 @@
         width: 98vw;
         height: 46vh;
         margin-left: 1vw;
-        background-color: white;
         transform: translateY(2vh);
         border-radius: 15px;
+        background-color: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(30px);
     }
 
     #questions-menu {
@@ -185,8 +193,26 @@
     }
 
     .button-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        background-color: rgb(124,185,232);
+        border-color: rgb(36, 23, 1);
+        border-style: solid;
+        border-radius: 20px;
+        width: 250px;
+        height: 70px;
+        position: relative;
+        bottom: 0px;
+        transition: 
+            background-color ease 0.3s, 
+            box-shadow ease-out 0.15s,
+            bottom ease-out 0.1s;
+        outline: none;
+        font-family: "Montserrat", sans-serif;
+        font-size: 30px;
+    }
+
+    .button-container:hover {
+        background-color: rgb(201,255,229);
+        box-shadow: 0 8px 15px rgb(161,161,161);
+        bottom: 3px;
     }
 </style>

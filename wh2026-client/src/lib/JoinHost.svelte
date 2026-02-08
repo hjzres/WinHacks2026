@@ -2,7 +2,38 @@
     let { HostLobby, JoinLobby } = $props();
     let code = $state();
 </script>
+
 <div id="body">
+    <div style="width: 80%; height: 80%; border-radius: 15px; background-color: white;">
+        <div style="width: 100%; height: 20%;">
+             <p id="site-name">Site Name</p>
+             <p id="site-description">Harness the potential of competitive group studying to solidify your mathematical foundations! Choose an option below:</p>
+        </div>
+
+        <div style="width: 100%; height: 80%;">
+            <div style="width: 100%; height: 100%; display: flex; flex-direction: row; align-items: center;">
+                <div style="width: 50%; height: 100%;">
+                    <div style="width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center;">
+                        <div style="width: 100%; height: 50%; display: flex; justify-content: center; align-items: flex-end;">
+                            <input type="text" name="code" id="code" maxlength=4 placeholder="Enter the code" bind:value={code}>
+                        </div>
+                            
+                        <div style="width: 100%; height: 50%; display: flex; justify-content: center; align-items: flex-start;">
+                            <button class="menu-buttons" onclick={() => {JoinLobby(code)}}>Join Lobby</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: center; align-items: center; width: 50%; height: 100%;">
+                    <p>If you want to be the host of the game, press this button!</p>
+                    <button class="menu-buttons" onclick={HostLobby}>Host Lobby</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div id="body">
     <div id="site-modal">
         <div class="column-layout">
             <p id="site-name">Site Name</p>
@@ -26,7 +57,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <head>
     <link rel="stylesheet" href = "https://fonts.googleapis.com/css2?family=Inter|SN+Pro">
@@ -35,10 +66,13 @@
     
     #body {
         background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.wallpapersden.com%2Fimage%2Fdownload%2Fabstract-wave-hd-blue_bWZnbm6UmZqaraWkpJRoaWprrWdnaGk.jpg&f=1&nofb=1&ipt=98a6a5de7c02caa8d4320c8166d916e52e7e383d4bd86c46b61b3477f8762847");
-        background-color: rgb(1,0,1);
         background-size: cover;
         width: 100vw; 
         height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
     #code-input-box {
@@ -70,13 +104,6 @@
         outline-width: 3px;
         border-radius: 15px;
     }
-    
-    .column-layout {
-        width: 100%; 
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-    }
 
     #site-buttons {
         width: 100%;
@@ -85,10 +112,11 @@
         flex-direction: row;
         font-family: "SN+Pro", normal;
     }
-    
-    .row-layout {
-        width: 50%;
-        height: 100%;
+
+    #code {
+        width: 300px;
+        height: 100px;
+        font-size: 30px;
     }
 
     #site-name {
@@ -111,7 +139,6 @@
         border-radius: 20px;
         width: 350px;
         height: 100px;
-        position: relative;
         bottom: 0px;
         transition: 
             background-color ease 0.3s, 
@@ -120,9 +147,6 @@
         outline: none;
         font-family: "Montserrat", sans-serif;
         font-size: 30px;
-        display: block;
-        margin: 0 auto 20% auto;
-        transform: TranslateY(-250px);
     }
 
     .menu-buttons:hover {
