@@ -6,7 +6,7 @@
   let renderedVersion: HTMLElement;
   let renderedAnswer: HTMLElement;
 
-  let sabotageOpen = true; 
+  let sabotageOpen = false; 
   let players = ["Andrei", "Sebastian", "Noah", "Tien", "Nick"];
 
   function sabotagePlayer(name: string) {
@@ -21,6 +21,9 @@
     currentQuestion;
     console.log("changes");
     // @ts-ignore
+    window.MathJax?.typesetClear([renderedVersion, renderedAnswer]);
+    renderedVersion.innerHTML = "$$" + question + "$$";
+    renderedAnswer.innerHTML = "$$" + answer + "$$";
     window.MathJax?.typeset([renderedVersion, renderedAnswer]);
   });
 

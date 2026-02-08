@@ -70,7 +70,7 @@
   socket.emit("submit_answer", userAnswer, (data) => {
     console.log(userAnswer);
     console.log(data);
-
+    if(!data.is_correct) return;
     question = data.next_question;
     answer = data.next_answer_template;
     console.log(question);

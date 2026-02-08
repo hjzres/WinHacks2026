@@ -34,7 +34,7 @@ QUADRATIC_FACTORING = QuestionTemplate(
 
 POWER_DEFINITE_INTEGRAL = QuestionTemplate(
     MathTemplate(r"\int_{ $a }^{ $b } x^{ $n } dx "),
-    MathTemplate(r"\frac_{ $num }{ $den }"),
+    MathTemplate(r"\frac{ $num }{ $den }"),
     constants=["a", "b", "n"],
     placeholders=["num", "den"],
 )
@@ -89,7 +89,7 @@ def make_random_power_definite_integral():
     den //= gcd
 
     return Question(
-        QUADRATIC_FACTORING, {"a": a, "b": b, "n": n}, {"num": num, "den": den}
+        POWER_DEFINITE_INTEGRAL, {"a": a, "b": b, "n": n}, {"num": num, "den": den}
     )
 
 
@@ -115,4 +115,7 @@ question_generators = [make_random_qf, make_random_power_definite_integral]
 
 
 def generate_questions():
-    return [random.choice(question_generators)() for _ in range(10)]
+    q = []
+    for i in range(10):
+        q.append(random.choice(question_generators)())
+    return q
