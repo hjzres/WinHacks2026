@@ -19,4 +19,18 @@ def make_random_power_definite_integral():
     print(a, b, n, num, den)
 
 
-make_random_power_definite_integral()
+def lowest_terms(num, den):
+    gcd = math.gcd(num, den)
+
+    num //= gcd
+    den //= gcd
+
+    print(num, den)
+
+
+lowest_terms(2, 3)
+lowest_terms(4, 6)
+
+lowest_terms(-4, 6)
+lowest_terms(4, -6)
+lowest_terms(-4, -6)
