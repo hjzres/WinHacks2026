@@ -34,7 +34,8 @@
       gameStarted = true;
       question = data.question;
       answer = data.answer_template;
-      console.log(gameStarted);
+      console.log(question);
+      console.log(answer);
   })
 
   function HostLobby(){
@@ -59,8 +60,22 @@
   }
   
   function startGame(){
-    socket.emit("start_game");
+    socket.emit("start_game", (data) => {
+      console.log("Started ", data);
+    });
   }
+
+  function submitAnswer(answer) {
+  socket.emit("submit_answer", answer, (data) => {
+    console.log(answer);
+    console.log(data);
+
+    question = data.next_question;
+    answer = data.next_answer_template;
+    console.log(question);
+    console.log(answer);
+  });
+}
 
 </script>
 
@@ -70,7 +85,7 @@
   {:else if !gameStarted}
     <Lobby players={players} gameCode={gameCode} isHost={isHost} updateQuestionData={updateQuestionTypes} startGame={startGame}/>
   {:else}
-    <Game question={question} answer={answer}/>
+    <Game question={question} answer={answer} submitAnswer={submitAnswer}/>
   {/if}
 </main>
 
