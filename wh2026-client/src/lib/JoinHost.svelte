@@ -1,6 +1,10 @@
 <script lang="ts">
+<<<<<<< HEAD
     let { HostLobby, JoinLobby } = $props();
     let code = $state();
+=======
+    
+>>>>>>> origin/lobby-design
 </script>
 
 <div id="body">
@@ -11,28 +15,28 @@
         </div>
 
         <div id="site-buttons">
-            <div class="site-rows">
+            <div class="row-layout">
                 <div class="column-layout">
+<<<<<<< HEAD
                     <input type="text" name="code" id="code" maxlength=4 placeholder="Enter the code" bind:value={code}>
+=======
+                    <input type="text" name="code" id="code-input-box" placeHolder="Enter the code">
+>>>>>>> origin/lobby-design
                 </div>
                 <div class="column-layout">
                     <button class="menu-buttons" onclick={() => {JoinLobby(code)}}>Join Lobby</button>
                 </div>
             </div>
 
+<<<<<<< HEAD
             <div class="site-rows">
                 <button class="menu-buttons" onclick={HostLobby}>Host Lobby</button>
+=======
+            <div class="row-layout">
+                <button class="menu-buttons">Host Lobby</button>
+>>>>>>> origin/lobby-design
             </div>
         </div>
-
-        <!-- <div id="site-components">
-            <p id="site-name">Site Name</p>
-            <p id="site-description">Harness the potential of competitive group studying to solidify your mathematical foundations! Choose an option below:</p>
-        </div>
-        <div id="site-components">
-            <button class="menu-buttons">Join Lobby</button>
-            <button class="menu-buttons">Host Lobby</button>
-        </div> -->
     </div>
 </div>
 
@@ -61,15 +65,6 @@
         border-radius: 15px;
     }
     
-    /* 
-    #site-components {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 50vw;
-    } */
-
     .column-layout {
         width: 100%; 
         height: 50%;
@@ -84,7 +79,7 @@
         flex-direction: row;
     }
     
-    .site-rows {
+    .row-layout {
         width: 50%;
         height: 100%;
     }
