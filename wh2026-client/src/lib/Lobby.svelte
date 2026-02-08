@@ -1,10 +1,11 @@
 <script lang="ts">
-
+    let { players, gameCode } = $props();
 </script>
 
 <div class="container">
     <div class="code">
-        <p class="title">CODE :######</p>
+        <p class="title">CODE : {gameCode}</p>
+
     </div>
     <div class="players-menu">
         <p class="title">Player:</p>
