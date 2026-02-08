@@ -26,7 +26,7 @@ class QuestionTemplate:
 
 QUADRATIC_FACTORING = QuestionTemplate(
     MathTemplate(r"x^2 + $b x + $c"),
-    MathTemplate(r"(x+r)(x+s)"),
+    MathTemplate(r"( x + $r )( x + $s )"),
     constants=["b", "c"],
     placeholders=["r", "s"],
 )
