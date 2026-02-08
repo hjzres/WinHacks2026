@@ -44,12 +44,12 @@
 </script>
 
 <main>
-  <Game />
-  <!-- {#if !inLobby}
+  <!-- <Game /> -->
+  {#if !inLobby}
     <JoinHost HostLobby={HostLobby} JoinLobby={JoinLobby} />
   {:else}
     <Lobby players={players} gameCode={gameCode} />
-  {/if} -->
+  {/if}
 </main>
 
 <style>
