@@ -1,5 +1,5 @@
 <script lang="ts">
-   let { question, answer, submitAnswer, totalQuestions } = $props();
+   let { question, answer, submitAnswer, totalQuestions, players } = $props();
 
   let currentQuestion = $state(1);
 
@@ -7,7 +7,6 @@
   let renderedAnswer: HTMLElement;
 
   let sabotageOpen = false; 
-  let players = ["Andrei", "Sebastian", "Noah", "Tien", "Nick"];
 
   function sabotagePlayer(name: string) {
     console.log("Sabotaged:", name);
@@ -63,7 +62,7 @@
             <div class="playerList">
             {#each players as p}
                 <div class="playerItem" onclick={() => sabotagePlayer(p)}>
-                {p}
+                {p.name}
                 </div>
             {/each}
             </div>

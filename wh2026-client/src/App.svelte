@@ -86,7 +86,7 @@
   {:else if !gameStarted}
     <Lobby players={players} gameCode={gameCode} isHost={isHost} updateQuestionData={updateQuestionTypes} startGame={startGame}/>
   {:else}
-    <Game question={question} answer={answer} submitAnswer={submitAnswer} totalQuestions={totalQuestions}/>
+    <Game question={question} answer={answer} submitAnswer={submitAnswer} totalQuestions={totalQuestions} players={players}/>
   {/if}
 </main>
 
