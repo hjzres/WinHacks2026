@@ -107,8 +107,8 @@ async def start_game(sid: str):
     press the "start game" button.
 
     It will automatically send the "game_started" event to every player in the
-    game, in which the data object will have a "question" field containing the
-    question which can be rendered on the client.
+    game, in which the data object will have a "question" field and
+    "answer_template" containing the question which can be rendered on the client.
     """
     conn_data = connections[sid]
 
@@ -130,7 +130,10 @@ async def start_game(sid: str):
 
     await sio.emit(
         "game_started",
-        {"question": first_question.render_question()},
+        {
+            "question": first_question.render_question(),
+            "answer_template": first_question.render_answer_template(),
+        },
         room=conn_data.game_code,
     )
 
@@ -177,7 +180,30 @@ async def submit_answer(sid: str, data: dict[str, int]):
         "status": "OK",
         "is_correct": True,
         "next_question": next_question.render_question(),
+        "next_answer_template": next_question.render_answer_template(),
     }
+
+
+@sio.event
+async def update_question_types(sid: str, data: dict[str, int]):
+    conn_data = connections[sid]
+
+    if conn_data.game_code is None:
+        return {"status": "ERROR", "message": "Not in game."}
+
+    game = games[conn_data.game_code]
+    player = game.players[conn_data.id]
+
+    if not player.is_host:
+        return {"status": "ERROR", "message": "Player is not a host."}
+
+    if game.started:
+        return {"status": "ERROR", "message": "Game has already started."}
+
+    game.question_types = data
+    print(game.question_types)
+
+    return {"status": "OK"}
 
 
 @sio.event
