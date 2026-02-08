@@ -1,6 +1,8 @@
 <script lang="ts">
   import type { interceptors } from "undici-types";
 
+    
+
     let { players, gameCode, isHost, updateQuestionData: updateQuestionData, startGame } = $props();
 
     interface QuestionTypeData {
@@ -18,6 +20,8 @@
         console.log(questions);
         updateQuestionData($state.snapshot(questions));
     })
+
+    
 
     let questionTypes: Array<QuestionTypeData> = $state([
         {name:"integral", display:"Integral", count:0}, 

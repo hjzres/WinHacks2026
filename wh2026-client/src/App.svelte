@@ -22,7 +22,8 @@
   let isHost : boolean = $state(false);
   let gameStarted : boolean = $state(false);
   let question : string = $state("");
-  let answer : string = $state("")
+  let answer : string = $state("");
+  let maxQuestions: number = $state(0);
 
   socket.on("players_updated", (data) => {
       console.log(data);
@@ -56,7 +57,7 @@
   }
 
   function updateQuestionTypes(questions: {[index: string]: number|undefined}){
-    socket.emit("update_question_types", questions)
+    socket.emit("update_question_types", questions);
   }
   
   function startGame(){
@@ -65,9 +66,9 @@
     });
   }
 
-  function submitAnswer(answer) {
-  socket.emit("submit_answer", answer, (data) => {
-    console.log(answer);
+  function submitAnswer(userAnswer) {
+  socket.emit("submit_answer", userAnswer, (data) => {
+    console.log(userAnswer);
     console.log(data);
 
     question = data.next_question;
