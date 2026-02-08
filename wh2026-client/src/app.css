@@ -1,0 +1,10 @@
+.fraction td {
+    display: flex;
+    padding: 0.5em;
+    align-items: center;
+    justify-content: center;
+}
+
+.fraction tr:first-child td {
+    border-bottom: 2px solid black;
+}

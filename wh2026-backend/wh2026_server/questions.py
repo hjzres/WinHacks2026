@@ -22,10 +22,7 @@ class QuestionTemplate:
 
     def render_answer_template(self) -> str:
         return self.answer_template.substitute(
-            {
-                p: f'<tex-html><input type="number" name="{p}"/></tex-html>'
-                for p in self.placeholders
-            }
+            {p: f'<input type="number" name="{p}"/>' for p in self.placeholders}
         )
 
 
@@ -66,9 +63,11 @@ def check_quadratic_factoring(
 
     return sub_r == sol_r and sub_s == sol_s
 
-SABOTAGE_PLAYER = QuestionTemplate(
+
+QUADRATIC_FACTORING = QuestionTemplate(
     MathTemplate(r"x^2 + $b x + $c"),
-    MathTemplate(r"( x + $r )( x + $s )"),
+    # MathTemplate(r"( x + $r )( x + $s )"),
+    MathTemplate('<p class="answer-template">(x+ $r )(x+ $s )</p>'),
     constants=["b", "c"],
     placeholders=["r", "s"],
     check_answer=check_quadratic_factoring,
@@ -77,7 +76,8 @@ SABOTAGE_PLAYER = QuestionTemplate(
 
 QUADRATIC_FACTORING = QuestionTemplate(
     MathTemplate(r"x^2 + $b x + $c"),
-    MathTemplate(r"( x + $r )( x + $s )"),
+    # MathTemplate(r"( x + $r )( x + $s )"),
+    MathTemplate('<p class="answer-template">(x+ $r )(x+ $s )</p>'),
     constants=["b", "c"],
     placeholders=["r", "s"],
     check_answer=check_quadratic_factoring,
@@ -99,7 +99,12 @@ def check_power_definite_integral(
 
 POWER_DEFINITE_INTEGRAL = QuestionTemplate(
     MathTemplate(r"\int_{ $a }^{ $b } x^{ $n } dx "),
-    MathTemplate(r"\frac{ $num }{ $den }"),
+    # MathTemplate(r"\frac_{ $num }{ $den }"),
+    MathTemplate("""<table class="answer-template fraction">
+  <tr><td> $num </td></tr>
+  <tr><td> $den </td></tr>
+</table>
+"""),
     constants=["a", "b", "n"],
     placeholders=["num", "den"],
     check_answer=check_power_definite_integral,
