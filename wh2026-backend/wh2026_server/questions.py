@@ -18,7 +18,7 @@ class QuestionTemplate:
     def render_answer_template(self) -> str:
         return self.answer_template.substitute(
             {
-                p: f'<tex-html><input type="text" name="{p}"/></tex-html>'
+                p: f'<tex-html><input type="number" name="{p}"/></tex-html>'
                 for p in self.placeholders
             }
         )

@@ -2,10 +2,11 @@
     let { question, answer } = $props();
 
     let renderedVersion: HTMLElement;
+    let renderedAnswer: HTMLElement;
 
     $effect(function renderMath() {
         // @ts-ignore
-        window.MathJax?.typesetPromise([renderedVersion]);
+        window.MathJax?.typeset([renderedVersion, renderedAnswer]);
     });
 
     
@@ -18,7 +19,7 @@
         Question #X: <span bind:this={renderedVersion} >$${question}$$</span>
     </header>
    <footer>
-        ANSWER BOX
+        <span bind:this={renderedAnswer}>$${answer}$$</span>
    </footer>
 </main>
 

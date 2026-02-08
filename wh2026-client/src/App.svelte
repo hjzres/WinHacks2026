@@ -33,7 +33,7 @@
       console.log(data);
       gameStarted = true;
       question = data.question;
-      answer = data.answer;
+      answer = data.answer_template;
       console.log(gameStarted);
   })
 
