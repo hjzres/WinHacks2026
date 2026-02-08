@@ -18,9 +18,10 @@ ADJECTIVES = [
     "Purple",
     "White",
     "Black",
+    "Brain"
 ]
 
-NOUNS = ["Dog", "Cat", "Bird", "Lizard", "Fox", "Rat"]
+NOUNS = ["Dog", "Cat", "Bird", "Lizard", "Fox", "Rat", "Storm", "Needle"]
 
 
 def random_name() -> str:
