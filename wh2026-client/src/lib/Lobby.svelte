@@ -11,10 +11,12 @@
 
     $effect(() => {
         let questions: {[index: string]: number|undefined} = {}
-        for(let qt of questionTypes) {
+        for(let qt of $state.snapshot(questionTypes)) {
             questions[qt.name] = qt.count;
+            console.log(qt);
         }
-        updateQuestionData(questions);
+        console.log(questions);
+        updateQuestionData($state.snapshot(questions));
     })
 
     let questionTypes: Array<QuestionTypeData> = $state([
@@ -88,7 +90,7 @@
             <div style="width: 75%; height: 100%">
                 <div id="questions-menu">
                     {#each questionTypes as question}
-                        <p class="mathematical-subject-text"><input readonly={!isHost} type="number" min=0 value={question.count} style="width: 70px; text-align: center;"> {question.display}</p>
+                        <p class="mathematical-subject-text"><input readonly={!isHost} type="number" min=0 bind:value={question.count} style="width: 70px; text-align: center;"> {question.display}</p>
                     {/each}
                 </div>
             </div>
