@@ -20,7 +20,7 @@
 </script>
 
 <main>
-  <JoinHost />
+  <Lobby />
 </main>
 
 <style>
