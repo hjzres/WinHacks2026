@@ -10,25 +10,10 @@
 
         <div class="player-list-menu" style="background-color: white;">
             <p class="title">Player:</p>
-            <div class="sections">
-                <div class="section">
-                    <p>---</p>
-                    <p>---</p>
-                    <p>---</p>
-                    <p>---</p>
-                </div>
-                <div class="section">
-                    <p>---</p>
-                    <p>---</p>
-                    <p>---</p>
-                    <p>---</p>
-                </div>
-                <div class="section">
-                    <p>---</p>
-                    <p>---</p>
-                    <p>---</p>
-                    <p>---</p>
-                </div>
+            <div class="player-grid">
+                {#each players as player (player.id ?? player.name)}
+                <p class="player-name">{player.name}</p>
+                {/each}
             </div>
         </div>
         <div class="info-menu-container">
@@ -63,6 +48,24 @@
 <style>
     * {
         font-size: 1.5rem;
+    }
+
+    .player-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr)); /* max 4 per row */
+        gap: 12px; /* space between rows/cols */
+    }
+
+    .player-name {
+        margin: 0;
+    }
+
+    /* Optional: make it responsive */
+    @media (max-width: 800px) {
+        .player-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 450px) {
+        .player-grid { grid-template-columns: 1fr; }
     }
 
     .code-container {

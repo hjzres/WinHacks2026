@@ -1,10 +1,6 @@
 <script lang="ts">
-<<<<<<< HEAD
     let { HostLobby, JoinLobby } = $props();
     let code = $state();
-=======
-    
->>>>>>> origin/lobby-design
 </script>
 
 <div id="body">
@@ -17,24 +13,15 @@
         <div id="site-buttons">
             <div class="row-layout">
                 <div class="column-layout">
-<<<<<<< HEAD
                     <input type="text" name="code" id="code" maxlength=4 placeholder="Enter the code" bind:value={code}>
-=======
-                    <input type="text" name="code" id="code-input-box" placeHolder="Enter the code">
->>>>>>> origin/lobby-design
                 </div>
                 <div class="column-layout">
                     <button class="menu-buttons" onclick={() => {JoinLobby(code)}}>Join Lobby</button>
                 </div>
             </div>
 
-<<<<<<< HEAD
             <div class="site-rows">
                 <button class="menu-buttons" onclick={HostLobby}>Host Lobby</button>
-=======
-            <div class="row-layout">
-                <button class="menu-buttons">Host Lobby</button>
->>>>>>> origin/lobby-design
             </div>
         </div>
     </div>
