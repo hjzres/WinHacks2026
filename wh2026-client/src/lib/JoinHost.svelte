@@ -1,20 +1,6 @@
 <script lang="ts">
-    import { io } from "socket.io-client";
-
-    const socket = io("http://localhost:5000",{
-    auth: {
-        id: "a0472aba-6249-4e24-8baf-711e85d7a58b"
-    }
-    });
-
-    socket.on("connect", () => {
-    socket.emit("create_game", ({status, game_code, name}) => {
-        console.log(status, game_code, name);
-
-        socket.emit("set_name", "awesomename");
-    });
-    });
-
+    let { HostLobby, JoinLobby } = $props();
+    let code = $state();
 </script>
 
 <div id="body">
@@ -27,15 +13,15 @@
         <div id="site-buttons">
             <div class="site-rows">
                 <div class="column-layout">
-                    <input type="text" name="code" id="code" placeholder="Enter the code">
+                    <input type="text" name="code" id="code" maxlength=4 placeholder="Enter the code" bind:value={code}>
                 </div>
                 <div class="column-layout">
-                    <button class="menu-buttons">Join Lobby</button>
+                    <button class="menu-buttons" onclick={() => {JoinLobby(code)}}>Join Lobby</button>
                 </div>
             </div>
 
             <div class="site-rows">
-                <button class="menu-buttons">Host Lobby</button>
+                <button class="menu-buttons" onclick={HostLobby}>Host Lobby</button>
             </div>
         </div>
 

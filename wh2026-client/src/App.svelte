@@ -11,16 +11,28 @@
   });
 
   socket.on("connect", () => {
-  socket.emit("create_game", ({status, game_code, name}) => {
-      console.log(status, game_code, name);
+      
+  });
+
+  function HostLobby(){
+    socket.emit("create_game", (data) => {
+      console.log(data.status, data.game_code, data.name);
       socket.emit("set_name", "awesomename");
-  });
-  });
+    });
+  }
+
+  function JoinLobby(game_code : string){
+    socket.emit("join_game", game_code, (data) => {
+      console.log(data);
+    })
+
+    let code : string;
+  }
 
 </script>
 
 <main>
-  <JoinHost />
+  <JoinHost HostLobby={HostLobby} JoinLobby={JoinLobby} />
 </main>
 
 <style>
