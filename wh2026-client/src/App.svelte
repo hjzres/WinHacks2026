@@ -2,6 +2,7 @@
     import { v4 as uuidv4 } from 'uuid';
   import JoinHost from './lib/JoinHost.svelte'
   import Lobby from './lib/Lobby.svelte' 
+  import Game from './lib/Game.svelte'
 
   import { io } from "socket.io-client";
 
@@ -43,11 +44,12 @@
 </script>
 
 <main>
-  {#if !inLobby}
+  <Game />
+  <!-- {#if !inLobby}
     <JoinHost HostLobby={HostLobby} JoinLobby={JoinLobby} />
   {:else}
     <Lobby players={players} gameCode={gameCode} />
-  {/if}
+  {/if} -->
 </main>
 
 <style>
