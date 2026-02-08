@@ -1,3 +1,5 @@
+from typing import Any
+
 import socketio
 
 from .data import ConnectionData, Game, Player, generate_game_code, validate_name
@@ -22,7 +24,7 @@ def generate_unique_game_code() -> str:
 
 
 @sio.event
-async def connect(sid, environ, auth):
+async def connect(sid: str, auth: Any) -> None:
     id = auth["id"]
     connections[sid] = ConnectionData(id)
 
@@ -31,17 +33,22 @@ async def connect(sid, environ, auth):
 
 
 @sio.event
-async def create_game(sid):
+async def create_game(sid: str):
     game_code = generate_unique_game_code()
+    conn_data = connections[sid]
+
+    if conn_data.game_code is not None:
+        return {"status": "ERROR", "message": "Already in game."}
+
     game = games[game_code] = Game(
         game_code,
     )
 
-    player = Player(connections[sid].id, is_host=True)
-    game.players[connections[sid].id] = player
+    player = Player(conn_data.id, is_host=True)
+    game.players[conn_data.id] = player
     await sio.enter_room(sid, game_code)
 
-    connections[sid].game_code = game_code
+    conn_data.game_code = game_code
 
     print(games)
 
@@ -49,7 +56,7 @@ async def create_game(sid):
 
 
 @sio.event
-async def join_game(sid, data):
+async def join_game(sid: str, data: str):
     game_code = data
     conn_data = connections[sid]
 
@@ -65,27 +72,34 @@ async def join_game(sid, data):
 
     await sio.enter_room(sid, game_code)
 
+    await sio.emit("players_updated", game.get_player_list(), room=game_code)
+
     return {"status": "OK"}
 
 
 @sio.event
-async def set_name(sid, data):
+async def set_name(sid: str, data: str):
     new_name = data
     conn_data = connections[sid]
 
     if not validate_name(new_name):
         return {"status": "ERROR", "message": "Invalid name."}
 
+    if conn_data.game_code is None:
+        return {"status": "ERROR", "message": "Not in game."}
+
     game = games[conn_data.game_code]
     player = game.players[conn_data.id]
 
     print(f"Old name: {player.name}, New name: {new_name}")
 
+    await sio.emit("players_updated", game.get_player_list(), room=conn_data.game_code)
+
     player.name = new_name
 
 
 @sio.event
-async def disconnect(sid, reason):
+async def disconnect(sid: str, reason: str):
     del connections[sid]
 
     print("disconnect ", sid, reason)

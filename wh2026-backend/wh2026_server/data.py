@@ -45,6 +45,9 @@ class Game:
     question_number: int = field(default=0)
     current_question: str = field(default="1+1")
 
+    def get_player_list(self) -> list[dict]:
+        return [p.get_display_data() for p in self.players.values()]
+
 
 @define
 class Player:
@@ -52,3 +55,6 @@ class Player:
     is_host: bool = field(default=False)
     name: str = field(factory=random_name)
     points: int = field(default=0)
+
+    def get_display_data(self) -> dict:
+        return {"name": self.name, "is_host": self.is_host}
