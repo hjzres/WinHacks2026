@@ -1,5 +1,5 @@
 <script lang="ts">
-    let { HostLobby, JoinLobby } = $props();
+    let { HostLobby, JoinLobby} = $props();
     let code = $state();
 </script>
 <div id="body">

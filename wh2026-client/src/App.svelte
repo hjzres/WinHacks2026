@@ -19,6 +19,7 @@
   let players : Array<string> = $state([]);
   let inLobby : boolean = $state(false);
   let gameCode : string = $state("");
+  let isHost : boolean = $state(false);
 
   socket.on("players_updated", (data) => {
       console.log(data);
@@ -30,6 +31,7 @@
       console.log(data);
       gameCode = data.game_code;
       inLobby = true;
+      isHost = true;
     });
   }
 
@@ -48,7 +50,7 @@
   {#if !inLobby}
     <JoinHost HostLobby={HostLobby} JoinLobby={JoinLobby} />
   {:else}
-    <Lobby players={players} gameCode={gameCode} />
+    <Lobby players={players} gameCode={gameCode} isHost={isHost}/>
   {/if}
 </main>
 
