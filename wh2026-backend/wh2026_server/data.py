@@ -1,8 +1,9 @@
 import random
-import string
 from uuid import UUID
 
 from attrs import define, field
+
+from .questions import Question, generate_questions
 
 
 def generate_game_code() -> str:
@@ -37,50 +38,6 @@ def validate_name(name: str) -> bool:
 class ConnectionData:
     id: UUID = field()
     game_code: str | None = field(default=None)
-
-
-r"\frac{}{}"
-[r"\frac{", 12, r"}{", 34, r"}"]
-
-
-class MathTemplate(string.Template):
-    delimiter = "$"
-
-
-@define
-class QuestionTemplate:
-    question_template: MathTemplate = field()
-    solution_template: MathTemplate = field()
-    constants: list[str] = field()
-    placeholders: list[str] = field()
-
-
-QUADRATIC_FACTORING = QuestionTemplate(
-    MathTemplate(r"x^2 + bx + c"),
-    MathTemplate(r"(x+r)(x+s)"),
-    constants=["b", "c"],
-    placeholders=["r", "s"],
-)
-
-
-@define
-class Question:
-    template: QuestionTemplate
-    constants: dict[str, int]
-    placeholder_solutions: dict[str, int]
-
-    def render_question(self) -> str:
-        return self.template.question_template.substitute(self.constants)
-
-
-def make_random_qf():
-    r = random.randint(1, 10)
-    s = random.randint(1, 10)
-    return Question(QUADRATIC_FACTORING, {"b": r + s, "c": r * s}, {"r": r, "s": s})
-
-
-def generate_questions():
-    return [make_random_qf() for _ in range(10)]
 
 
 @define
